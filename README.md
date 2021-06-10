@@ -5,7 +5,7 @@ Background on Nunchuk I2C registers, handshake protocols, etc. were provided pri
 
 
 ## Setup
-<img src="images/wiring.jpg" width=500 align=right>
+<img src="images/wiring.jpg" width=400 align=right>
 
 ### Software
 This script was tested on a Raspberry Pi 4B and uses the [SMBus](http://wiki.erazor-zone.de/wiki:linux:python:smbus:doc) library, pre-installed on all non-lite versions of Raspberry Pi OS. It can be installed manually with:
