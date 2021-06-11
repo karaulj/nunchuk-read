@@ -12,6 +12,8 @@ ACCEL_Y = 0x03
 ACCEL_Z = 0x04
 BUTTONS_ACCEL = 0x05
 
+NUM_LINES = 7
+
 
 def nunchuk_read_once(i2c, round_accel):
     data_all = i2c.read_i2c_block_data(NUNCHUK_I2C_ADDR, 0x00, 6)
@@ -48,7 +50,7 @@ def nunchuk_read_once(i2c, round_accel):
     print("button C (0-1):     {}".format(button_c))
     print("button Z (0-1):     {}".format(button_z))
     # reset line
-    print("\033[A\033[A\033[A\033[A\033[A\033[A\033[A\033[A\033[A")
+    print("\033[A"*(NUM_LINES+2))
 
 
 def nunchuk_set_encryption(i2c):
@@ -61,7 +63,7 @@ def nunchuk_set_encryption(i2c):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Read values from a Wii Nunchuk controller")
     parser.add_argument('--i2c', '-i', type=int, help='I2C bus. Default is 1', default=1)
-    parser.add_argument('--delay', '-d', type=float, help='Delay between readings, in seconds. Default is 0.01 (<0.005 usually results in an error)', default=0.01)
+    parser.add_argument('--delay', '-d', type=float, help='Delay between readings, in seconds. Default is 0.01', default=0.01)  # <0.005 usually results in an IO error
     parser.add_argument('--round-accel', '-r', action='store_true', help='Set accelerometer values to be 8-bit instead of 10-bit. Default is False')
     args = parser.parse_args()
 
@@ -76,7 +78,7 @@ if __name__ == "__main__":
             print("")
             time.sleep(args.delay)
     except KeyboardInterrupt:
-        print(7*'\n')  # skip past read info
+        print('\n'*NUM_LINES)  # skip past read info
         print("KeyboardInterrupt detected")
 
     print("Finished")
